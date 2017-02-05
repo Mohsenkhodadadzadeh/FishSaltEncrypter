@@ -1,0 +1,2 @@
+# FishSaltEncrypter
+Fish SaltEncryption
