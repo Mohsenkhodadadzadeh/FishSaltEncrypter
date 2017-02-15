@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Decryption.cs" />
     <Compile Include="Encrypte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
