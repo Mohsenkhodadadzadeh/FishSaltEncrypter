@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FishSaltCSharp
 {
@@ -14,18 +11,18 @@ namespace FishSaltCSharp
         private const int ODD_EVEN_MAX_LENGHT = 10;
 
         //Min char Ascii showable is zero
-        private const int MIN_ASCII_CODE = 60;
+        private const int MIN_ASCII_CODE = 32;
 
         //max char ascii showable is }
-        private const int MAX_ASCII_CODE = 175;
+        private const int MAX_ASCII_CODE = 125;
 
         //Get random salt size
         private int Salt_Count;
-        
+
         // Get Random odd even size
         private int odd_even_count;
-        
-        // salt data 
+
+        // salt data
         private char[] salt_data;
 
         //Odd even data
@@ -35,7 +32,7 @@ namespace FishSaltCSharp
         private void Initalize()
         {
 
-             rnd = new Random();
+            rnd = new Random();
 
             // Initalize Random Salt
             Salt_Count = rnd.Next(MIN_ASCII_CODE, MAX_ASCII_CODE); // from 0 ascii to z ascii
@@ -44,7 +41,7 @@ namespace FishSaltCSharp
             //Initalize random odd-even-code
             odd_even_count = rnd.Next(MIN_ASCII_CODE, MAX_ASCII_CODE);  // from 0 ascii to z ascii
             odd_even_data = new char[(odd_even_count - MIN_ASCII_CODE) % ODD_EVEN_MAX_LENGHT];
-            
+
 
         }
 
@@ -56,13 +53,13 @@ namespace FishSaltCSharp
         public String Encrypte_Data(String data)
         {
             //Initalize salt data
-            for(int i = 0; i < salt_data.Length; i++)
+            for (int i = 0; i < salt_data.Length; i++)
             {
                 salt_data[i] = (char)rnd.Next(MIN_ASCII_CODE, MAX_ASCII_CODE);
             }
 
             // Initalize odd even data
-            for(int i = 0; i < odd_even_data.Length; i++)
+            for (int i = 0; i < odd_even_data.Length; i++)
             {
                 odd_even_data[i] = (char)rnd.Next(MIN_ASCII_CODE, MAX_ASCII_CODE);
             }
@@ -75,18 +72,18 @@ namespace FishSaltCSharp
             for (int i = 0; i < encData.Length; i++)
             {
                 // Get Odd Even state
-                if (odd_even_loop > (odd_even_count % ODD_EVEN_MAX_LENGHT))
+                if (odd_even_loop > ((odd_even_count - MIN_ASCII_CODE) % ODD_EVEN_MAX_LENGHT))
                 {
                     odd_even_loop = 1;
                 }
-                Boolean odd_even_state = HashEvenOdd(odd_even_data[odd_even_loop]);
+                Boolean odd_even_state = HashEvenOdd(odd_even_data[odd_even_loop - 1]);
 
                 // Get Salt value
-                if (salt_loop > (Salt_Count % SALT_MAX_LENGHT))
+                if (salt_loop > ((Salt_Count - MIN_ASCII_CODE) % SALT_MAX_LENGHT))
                 {
                     salt_loop = 1;
                 }
-                int salt_value = salt_data[salt_loop];
+                int salt_value = salt_data[salt_loop - 1];
 
                 int ValueData;
 
@@ -96,7 +93,7 @@ namespace FishSaltCSharp
 
                     if (ValueData > MAX_ASCII_CODE)
                     {
-                        ValueData = ValueData - MAX_ASCII_CODE;
+                        ValueData = ValueData - (MAX_ASCII_CODE - MIN_ASCII_CODE);
                     }
                 }
                 else
@@ -105,15 +102,15 @@ namespace FishSaltCSharp
 
                     if (ValueData < MIN_ASCII_CODE)
                     {
-                        ValueData = ValueData + MIN_ASCII_CODE;
+                        ValueData = ValueData + (MAX_ASCII_CODE - MIN_ASCII_CODE);
                     }
                 }
-
-                encData[i] = (char)ValueData;
+                char chrtest = (char)ValueData;
+                encData[i] = chrtest;
 
                 odd_even_loop++;
                 salt_loop++;
-               
+
             }
 
             StringBuilder RetObj = new StringBuilder();
@@ -122,7 +119,7 @@ namespace FishSaltCSharp
             RetObj.Append((char)odd_even_count);
             RetObj.Append(odd_even_data);
             RetObj.Append(encData);
-           // return 
+            // return
 
             return RetObj.ToString();
         }
@@ -136,7 +133,7 @@ namespace FishSaltCSharp
             return false;
 
             // Secend Example
-            
+
             int i = 0;
         }
     }
