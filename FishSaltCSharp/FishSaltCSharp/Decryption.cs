@@ -44,7 +44,7 @@ namespace FishSaltCSharp
             //Initalize Salt size
 
             // Get salt data lenght
-            Salt_Count = (((int)EncChar[StartRead] - MIN_ASCII_CODE) % SALT_MAX_LENGHT);
+            Salt_Count = (((int)EncChar[StartRead] - MIN_ASCII_CODE - 1) % SALT_MAX_LENGHT) + 1;
             // pass Salt_count
             StartRead = 1;
             salt_data = new char[Salt_Count];
@@ -59,7 +59,7 @@ namespace FishSaltCSharp
             //initalize odd_even_data
 
             // get oddevent string lenght
-            odd_even_count = (((int)EncChar[StartRead] - MIN_ASCII_CODE) % ODD_EVEN_MAX_LENGHT);
+            odd_even_count = (((int)EncChar[StartRead] - MIN_ASCII_CODE - 1) % ODD_EVEN_MAX_LENGHT) + 1;
             // pass odd even count
             StartRead += 1;
             odd_even_data = new char[odd_even_count];

@@ -36,11 +36,11 @@ namespace FishSaltCSharp
 
             // Initalize Random Salt
             Salt_Count = rnd.Next(MIN_ASCII_CODE, MAX_ASCII_CODE); // from 0 ascii to z ascii
-            salt_data = new char[(Salt_Count - MIN_ASCII_CODE) % SALT_MAX_LENGHT];
+            salt_data = new char[((Salt_Count - MIN_ASCII_CODE - 1) % SALT_MAX_LENGHT) + 1];
 
             //Initalize random odd-even-code
             odd_even_count = rnd.Next(MIN_ASCII_CODE, MAX_ASCII_CODE);  // from 0 ascii to z ascii
-            odd_even_data = new char[(odd_even_count - MIN_ASCII_CODE) % ODD_EVEN_MAX_LENGHT];
+            odd_even_data = new char[((odd_even_count - MIN_ASCII_CODE - 1) % ODD_EVEN_MAX_LENGHT) + 1];
 
 
         }
